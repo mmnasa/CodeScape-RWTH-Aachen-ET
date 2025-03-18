@@ -11,12 +11,9 @@ void run() {
     printf("Output: %s", output);
     turnRight();
     move();
-    if (output[0] == 'L'){
-        
-        turnLeft();
-        
-    }else{
-        turnRight();
+    switch (output[0]){
+        case 'L': turnLeft(); break;
+        case 'R': turnRight(); break;
     }
     move();
 }
