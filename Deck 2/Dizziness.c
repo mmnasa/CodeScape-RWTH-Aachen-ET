@@ -1,20 +1,15 @@
 #include "codescape.h"
 void run() {
-    int moves = 0;
-    int i = 7; // Initial value of i
-    int count = 0; // Counter for condition executions
+    int i = 0;
+    int turn = 7;
+    int nextTurn = turn;
 
-    while (true) {
-        move();
-        moves++;
-
-        if (moves % i == 0) {
+    for (; i < 35; i++) {
+        if (i == nextTurn) {
             turnRight();
-            count++; // Increment the counter each time the condition is met
-            if (count > 1) {
-                i--; // Decrement i only after the first time
-            }
-            moves = 0; // Reset moves
+            nextTurn += turn;
+            turn--;
         }
+        move();
     }
 }
