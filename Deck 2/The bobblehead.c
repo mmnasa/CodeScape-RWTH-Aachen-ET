@@ -1,23 +1,15 @@
 #include "codescape.h"
-
-   // Die Energiezellen sind nur mit sehr effizientem Programmieren sammelbar
 void run() {
-    int moves = 0;
-
-    while (moves < 15) { 
-        
-            while (!isMovePossible()) {
-                turnLeft();
-                moves=0; 
-            }
-            move();
-            moves++;
-            if (moves==6){
-                pickUp();
-                turnLeft();
-                move();
-                pickUp();
-            }
-        
-    }
+    // Die Energiezellen sind nur mit sehr effizientem Programmieren sammelbar
+	for(int i=0; i<9; i++){
+	    if (i==6 || i==7){
+	        pickUp();
+	        turnLeft();
+	    }
+	    while(!isMovePossible()){
+	        turnLeft();
+	        i=0;
+	    }
+	    move();
+	}
 }
