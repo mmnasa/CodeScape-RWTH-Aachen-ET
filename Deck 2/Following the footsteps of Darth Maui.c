@@ -4,11 +4,10 @@ void run() {
 	// Die Karte ändert sich nur, wenn der Hund eine Aktion 
 	// durchführt. isMovePossible() reicht nicht aus!
 	// Dein Code hier:
-	while (true){
-	    if(isMovePossible()==1){
-	    move();
-	    }else{
-	    turnRight();
+	for(int i=0; i<7; i++){
+	    while(!isMovePossible()){
+	        rest();
 	    }
+	    move();
 	}
 }
