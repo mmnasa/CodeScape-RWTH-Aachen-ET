@@ -1,20 +1,15 @@
 #include "codescape.h"
 void run() {
-    
-    int moves=0;
-    while (moves<27) {
-        move();
-        moves++;
-        
-        while (isMovePossible() == 0) {
+    for (int i=0;i<27;i++){
+        while (!isMovePossible()){
             turnRight();
         }
-        if(moves == 11) {
-                turnRight();
-        }else if(moves == 14) {
-                pickUp();
+        if (i == 11) {
+            turnRight();
         }
-        
-        
+        if (i == 14) {
+            pickUp();
+        }
+        move();
     }
 }
