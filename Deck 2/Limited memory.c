@@ -1,33 +1,17 @@
 #include "codescape.h"
 void run() {
-    
-    int nums[7]={6,2,5,2,6,0,3};
-    for(int i=0; i<=6 ; i++){
-        int moves=0;
-        int num=nums[i];
-        
-        if(num==0){
-            
-            pickUp();
-            continue;
-        }
-        
-        while(moves<num){
-            
-            if(isMovePossible()){
-                
-               move();
-               moves++;
-            }else{
-                
-                rest();
-            }
-        }
-        
-        if(i==2 || i==3){
-            turnLeft();
-        }else{
+    for (int i=0; i<24; i++){
+        if(i==6||i==8||i==21){
             turnRight();
+        }else if (i==13||i==15){
+            turnLeft();
         }
+        if(i==21){
+            pickUp();
+        }
+        while(!isMovePossible()){
+            rest();
+        }
+        move();
     }
 }
