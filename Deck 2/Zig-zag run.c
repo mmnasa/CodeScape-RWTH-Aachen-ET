@@ -1,17 +1,18 @@
 #include "codescape.h"
 void run() {
-    int turnCount = 0;
-
-    while (true) {
-        if (isMovePossible()) {
-            move();
-        } else {
-            if (turnCount % 2 == 0) { //this means that every time we devide turnCount/2 the remainder is 0
-                turnRight(); 
-            } else {
-                turnLeft(); 
+    // Verwende WHILE/FOR-Schleifen
+    // Es ist sinnvoll hier den Modulooperator "%" zu verwenden
+    // Dein Code hier:
+    int turnCount=1;
+    for(int i=0; i<14; i++){
+        while(!isMovePossible()){
+           if(turnCount%2==0){
+                turnLeft();
+            }else{
+                turnRight();
             }
-            turnCount++; 
+            turnCount++;
         }
+        move();
     }
 }
