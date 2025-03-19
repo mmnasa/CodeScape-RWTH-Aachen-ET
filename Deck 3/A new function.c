@@ -1,35 +1,32 @@
 #include "codescape.h"
-void re_er() {
-    char pass[100];
+void clearTerminal() {
+    char pass[20]; 
     
     turnLeft();
-    read(pass);
+    read(pass);  
     turnRight();
-    move();
+    move();   
     turnLeft();
     write(pass);
     turnRight();
 }
 
 void run() {
-    int moves = 0;
-    
-    while (moves < 30) {
-        if (isMovePossible()) {
-            if (moves == 2 || moves == 23) {
-                re_er();
-                moves++;  
-            } else {
-                move();
-                moves++;
-            }
-        }else if (!isMovePossible() && (moves == 5 || moves == 16)) {
-            turnRight();
-        } else if (!isMovePossible() && moves == 10 ) {
-            turnRight();
-            pickUp();
-        }else {
-            turnLeft();
+    for (int i = 0; i < 28; i++) {
+        if (i == 2 || i == 23) {
+            clearTerminal();  
+            i++; 
         }
+        while (!isMovePossible()) {
+            if (i == 5) {
+                turnRight();
+            } else {
+                turnLeft();
+            }
+        }
+        if (i == 10) {
+            pickUp();
+        }
+        move();
     }
 }
