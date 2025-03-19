@@ -2,9 +2,8 @@
 /**
  * Hier die zu erstellende Funktion moveX()
  */
-void moveX(int X){
-    
-    for(int i=1;i<=X;i++){
+void moveX(int x){
+    for (int i=0;i<x;i++){
         move();
     }
 }
