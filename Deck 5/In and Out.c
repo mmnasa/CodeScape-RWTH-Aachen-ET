@@ -12,6 +12,7 @@ char getInverse(char c) {
         default: return '\0';
     }
 }
+
 char* Pop(listptr stack) {
     if (IsEmpty(*stack)) return NULL;
     char* item = stack->first->data;
@@ -23,26 +24,34 @@ void run(listptr stackIn) {
     char* action;
     char password[20];
 
+    // Custom extra movement instructions
+    char extraIn[]  = { 'M', 'L', 'M', 'L', 'P', 'L', 'M', 'R', 'M' };
+    int extraInLen  = sizeof(extraIn) / sizeof(extraIn[0]);
+
+    char extraOut[] = { 'W', 'L', 'M', 'M' };
+    int extraOutLen = sizeof(extraOut) / sizeof(extraOut[0]);
+
+    // Reverse path stack
     List stack;
     listptr stackOut = &stack;
     Init(stackOut);
-    
+
+    // Start movement
     move();
     turnRight();
 
+    // Step 1: Process original stackIn
     while (!IsEmpty(*stackIn)) {
         action = Pop(stackIn);
         if (action == NULL) continue;
 
         char c = action[0];
-
         switch (c) {
             case 'M': move(); break;
             case 'L': turnLeft(); break;
             case 'R': turnRight(); break;
         }
 
-        // Save reverse command
         char inv = getInverse(c);
         if (inv != '\0') {
             char* rev = malloc(2);
@@ -52,31 +61,38 @@ void run(listptr stackIn) {
         }
     }
 
-    move();
-    turnLeft();
-    move();
-    turnLeft();
-    read(password);
-    turnLeft();
-    move();
-    turnRight();
-    move();
+    // Step 2: Execute extraIn
+    for (int i = 0; i < extraInLen; i++) {
+        char c = extraIn[i];
+        switch (c) {
+            case 'M': move(); break;
+            case 'L': turnLeft(); break;
+            case 'R': turnRight(); break;
+            case 'P': read(password); break;
+        }
+    }
 
-    // Return to start
+    // Step 3: Return path
     while (!IsEmpty(*stackOut)) {
         action = Pop(stackOut);
         if (action == NULL) continue;
 
         char c = action[0];
-
         switch (c) {
             case 'M': move(); break;
             case 'L': turnLeft(); break;
             case 'R': turnRight(); break;
         }
     }
-    write(password);
-    turnLeft();
-    move();
-    move();
+
+    // Step 4: Execute extraOut
+    for (int i = 0; i < extraOutLen; i++) {
+        char c = extraOut[i];
+        switch (c) {
+            case 'M': move(); break;
+            case 'L': turnLeft(); break;
+            case 'R': turnRight(); break;
+            case 'W': write(password); break;
+        }
+    }
 }
