@@ -1,29 +1,39 @@
 #include "codescape.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
-void run(char array[]) {
-    int moves = 0;
 
-    while (moves < 25) {
-        move();
-        moves++;
-        if (moves == 2 || moves == 12) {
-            turnLeft();
-            for (int i = 0; i < strlen(array); i++) {
-                if (array[i] == '\0') break;
-                char temp[1];
-                temp[0] = array[i];
-                temp[1] = '\0';
-                write(temp);
-            }
-            turnRight();
-        }else {
-            if (moves == 3 || moves == 11) {
-                turnLeft();
-            } else if ( moves == 7 || moves == 9) {
-                turnRight();
-                pickUp();
-            }
-        }
+void turnAround(){
+    for (int i=0 ; i<2 ; i++){
+        turnRight();
     }
+}
+
+void run() {
+	//Your Code here:
+	
+	char array[50];
+	for (int i=0 ; i<11 ; i++){
+	    if (i == 3||i == 6||i == 9){
+	        turnLeft();
+	    }
+	    if (i==4){
+	        read(array);
+	        turnAround();
+	    }
+	    if (i==8){
+	        turnLeft();
+            int len = strlen(array);
+                for (int j = 0; j < len / 2; j++) {
+                    char temp = array[j];
+                    array[j] = array[len - 1 - j];
+                    array[len - 1 - j] = temp;
+                }
+                write(array);
+	    }
+	    if(i==10||i==8) {
+	        turnRight();
+	    }
+	    move();
+	}
 }
